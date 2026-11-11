@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA & Mobile Web App Meta Tags for iOS & Android -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Steve Care Hub">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="apple-touch-icon" href="https://placehold.co/192x192/0f766e/ffffff?text=❤️+Steve">
+    <title>Steve's Care & Lifeline Hub</title>
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --primary-light: #ccfbf1;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0f766e 0%, #047857 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .install-app-btn {
+            background: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 0.5rem 0.85rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all 0.2s;
+        }
+
+        .install-app-btn:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        .notif-bell-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 2px solid #0f766e;
+        }
+
+        .admin-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.53rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Nav Tabs */
+        nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 76px;
+            z-index: 30;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.65rem 1.1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1100px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Cards & Layout */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        /* Deep Emerald Latest Update Container */
+        .hero-card {
+            background: #046a38;
+            color: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(4, 106, 56, 0.25);
+        }
+
+        .hero-header-pills {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-pill {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: white;
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .hero-main-status {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-main-status h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .hero-main-status .status-value {
+            font-size: 1.6rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .hero-update-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-feelings-box {
+            background: rgba(0, 0, 0, 0.18);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 18px;
+            padding: 1.1rem 1.25rem;
+            text-align: center;
+        }
+
+        .hero-feelings-box h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-metrics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* History Card Styling */
+        .history-card {
+            background: #f0f9f4;
+            border: 1px solid #ccebd7;
+            border-radius: 18px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Form Elements */
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            background: #f8fafc;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-accent:hover {
+            background: #d97706;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Admin Panels */
+        .admin-panel {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-panel-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #92400e;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Chat Bot */
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 520px;
+            border-radius: var(--radius);
+            background: white;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #f8fafc;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 0.85rem 1.1rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-msg.bot {
+            background: white;
+            border: 1px solid var(--border);
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+
+        .chat-msg.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        .chat-prompts-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1rem;
+            background: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .chat-prompts-wrapper span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            white-space: nowrap;
+        }
+
+        .prompt-chip {
+            background: white;
+            border: 1px solid rgba(13, 148, 136, 0.4);
+            color: var(--primary-dark);
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .prompt-chip:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+
+        .modal-card {
+            background: white;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.65rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-muted { background: #f1f5f9; color: #475569; }
+
+        /* Helpers */
+        .text-xs { font-size: 0.75rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-muted { color: var(--text-muted); }
+        .font-bold { font-weight: 700; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo-group">
+                <div class="logo-icon">❤️</div>
+                <div>
+                    <h1 style="font-size: 1.25rem; font-weight: 700;">Steve's Care Hub</h1>
+                    <p style="font-size: 0.75rem; opacity: 0.9;">Live Recovery Updates & Coordination</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="install-app-btn" onclick="openInstallModal()" title="Install app on iPhone or Android">📱 Install App</button>
+                <button id="notif-btn" class="notif-bell-btn hidden" title="Notifications Center" onclick="openNotifCenter()">
+                    🔔 <span id="notif-badge-count" class="notif-badge hidden">0</span>
+                </button>
+                <button id="admin-toggle-btn" class="admin-btn" onclick="toggleAdminMode()">🔑 Caregiver Admin Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav>
+        <div class="nav-container">
+            <button class="tab-btn active" onclick="switchTab('updates', this)">📋 Daily Updates</button>
+            <button class="tab-btn" onclick="switchTab('progress', this)">📈 Progress</button>
+            <button class="tab-btn" onclick="switchTab('bot', this)">🤖 Ask AI Bot</button>
+            <button class="tab-btn" onclick="switchTab('visits', this)">📅 Schedule Visit</button>
+            <button class="tab-btn" onclick="switchTab('meals', this)">🍲 Meal Train</button>
+            <button class="tab-btn" onclick="switchTab('wishes', this)">💌 Well Wishes</button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+
+        <!-- ADMIN MODE BANNER -->
+        <div id="admin-banner" class="admin-panel hidden">
+            <div class="flex-between">
+                <div>
+                    <span class="admin-panel-title">⚡ Caregiver Admin Mode Active</span>
+                    <p class="text-xs" style="color: #78350f;">You can post new daily logs, manage visiting blocks, and edit meal slots.</p>
+                </div>
+                <button class="btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="exitAdminMode()">Exit Admin</button>
+            </div>
+        </div>
+
+        <!-- TAB 1: DAILY HEALTH UPDATES -->
+        <section id="tab-updates" class="tab-content">
+            <!-- Latest Status Hero Card -->
+            <div class="hero-card">
+                <div class="hero-header-pills">
+                    <span class="hero-pill">LATEST UPDATE</span>
+                    <span id="hero-submitted-time" class="hero-pill" style="text-transform: none;">Submitted: 11/11/2026 • 7:00 PM</span>
+                </div>
+                
+                <div class="hero-main-status">
+                    <h2>Currently Steve is:</h2>
+                    <span id="hero-status" class="status-value">In Good Spirits 😊</span>
+                </div>
+
+                <div id="hero-notes" class="hero-update-box">
+                    Steve had a peaceful afternoon! He completed light physical therapy and sat up for dinner. Vitals are steady and pain is well controlled.
+                </div>
+
+                <div class="hero-feelings-box">
+                    <h3>How's Steve Feeling?</h3>
+                    <div class="hero-metrics-list">
+                        <div>Energy: <span id="hero-energy-val">8/10</span></div>
+                        <div>Pain: <span id="hero-pain-val">9/10</span></div>
+                        <div>Mood: <span id="hero-mood-val">8/10</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin New Post Trigger/Form -->
+            <div id="admin-post-section" class="card hidden" style="border-color: var(--primary);">
+                <div class="flex-between" style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1rem; color: var(--primary-dark);">📝 Post Daily Care Log</h3>
+                    <span class="badge badge-success">Admin Mode</span>
+                </div>
+
+                <form id="new-update-form" onsubmit="submitCareLog(event)">
+                    <div style="margin-bottom: 1rem;">
+                        <label>Time Slot</label>
+                        <select id="log-time-slot">
+                            <option value="Morning Update (8:00 AM)">🌅 Morning Update (8:00 AM)</option>
+                            <option value="Afternoon Update (1:30 PM)">☀️ Afternoon Update (1:30 PM)</option>
+                            <option value="Evening Update (7:00 PM)" selected>🌙 Evening Update (7:00 PM)</option>
+                        </select>
+                    </div>
+
+                    <!-- 3 SLIDING SCALES (1-10) -->
+                    <div class="grid-3" style="margin-bottom: 1rem; background: #f8fafc; padding: 0.85rem; border-radius: 12px; border: 1px solid var(--border);">
+                        <div>
+                            <label>Energy Level: <span id="energy-val" style="color: var(--primary); font-size: 0.9rem;">8/10</span></label>
+                            <input type="range" id="log-energy" min="1" max="10" value="8" oninput="document.getElementById('energy-val').innerText = this.value + '/10'">
+                        </div>
+                        <div>
+                            <label>Pain Level (10 = Pain Free): <span id="pain-val" style="color: var(--primary); font-size: 0.9rem;">9/10</span></label>
+                            <input type="range" id="log-pain" min="1" max="10" value="9" oninput="document.getElementById('pain-val').innerText = this.value + '/10'">
+                        </div>
+                        <div>
+                            <label>Mood (10 = Excellent): <span id="mood-val" style="color: var(--primary); font-size: 0.9rem;">8/10</span></label>
+                            <input type="range" id="log-mood" min="1" max="10" value="8" oninput="document.getElementById('mood-val').innerText = this.value + '/10'">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label>How Steve is Feeling</label>
+                        <select id="log-feeling" onchange="toggleCustomFeelingInput(this)">
+                            <option value="In Good Spirits 😊">In Good Spirits 😊</option>
+                            <option value="Resting Peacefully 😴">Resting Peacefully 😴</option>
+                            <option value="Active & Conversational 🗣️">Active & Conversational 🗣️</option>
+                            <option value="Low Energy / Needs Rest 🛌">Low Energy / Needs Rest 🛌</option>
+                            <option value="Tired / Pain Managed 💊">Tired / Pain Managed 💊</option>
+                            <option value="Sore but Recovering 💪">Sore but Recovering 💪</option>
+                            <option value="High Energy / Chatty ✨">High Energy / Chatty ✨</option>
+                            <option value="OTHER">Other (Custom Response)...</option>
+                        </select>
+                        <input type="text" id="log-custom-feeling" class="hidden mt-2" placeholder="Enter custom feeling status...">
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label>Medical & Recovery Update</label>
+                        <textarea id="log-notes" rows="3" required placeholder="How is Steve feeling? Pain levels, therapy progress, nap status..."></textarea>
+                    </div>
+
+                    <div class="grid-2" style="margin-bottom: 1rem;">
+                        <div>
+                            <label>Diet / Food Cravings</label>
+                            <input type="text" id="log-diet" placeholder="e.g. Smoothies, Mashed Potatoes">
+                        </div>
+                        <div>
+                            <label>Special Requests / Care Notes</label>
+                            <input type="text" id="log-special" placeholder="e.g. Needs rest after 4 PM">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%;">Publish Update to Hub</button>
+                </form>
+            </div>
+
+            <!-- Past Logs Timeline (Last 72 Hours) -->
+            <h3 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-muted);">History Log (Past 72 Hours)</h3>
+            <div id="timeline-container">
+                <!-- Injected via JS -->
+            </div>
+            
+            <p class="text-xs text-muted" style="text-align: center; margin-top: 1rem; padding: 0.75rem; background: #f1f5f9; border-radius: 10px;">
+                💡 <em>For updates over 72 hours ago, please utilize the Ask Bot.</em>
+            </p>
+        </section>
+
+        <!-- TAB 1.5: RECOVERY PROGRESS CHART -->
+        <section id="tab-progress" class="tab-content hidden">
+            <div class="card">
+                <div class="flex-between" style="margin-bottom: 1rem;">
+                    <div>
+                        <h2 style="font-size: 1.1rem; font-weight: 700;">Steve's Energy, Pain & Mood Progress</h2>
+                        <p class="text-xs text-muted">Tracked automatically from daily caregiver updates</p>
+                    </div>
+                    <span class="badge badge-success" id="progress-total-count">3 Logs Tracked</span>
+                </div>
+
+                <!-- 3 CATEGORY METRIC BOXES WITH OVERALL & 72-HOUR AVERAGES -->
+                <div class="grid-3" style="margin-bottom: 1.5rem;">
+                    <!-- GREEN BOX: ENERGY -->
+                    <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; padding: 1rem; border-radius: 14px; text-align: center;">
+                        <span class="text-xs font-bold" style="color: #166534; display: block; letter-spacing: 0.5px;">🟢 ENERGY LEVELS</span>
+                        <div id="stat-overall-energy" style="font-size: 1.6rem; font-weight: 800; color: #15803d; margin-top: 0.25rem;">7.0 / 10</div>
+                        <span class="text-xs text-muted" style="font-weight: 600;">Overall Average</span>
+                        <div id="stat-72h-energy" style="font-size: 0.85rem; font-weight: 700; color: #166534; margin-top: 0.4rem; padding-top: 0.35rem; border-top: 1px dashed #bbf7d0;">
+                            72h Avg: 6.3 / 10
+                        </div>
+                    </div>
+
+                    <!-- YELLOW BOX: PAIN -->
+                    <div style="background: #fefce8; border: 1.5px solid #fef08a; padding: 1rem; border-radius: 14px; text-align: center;">
+                        <span class="text-xs font-bold" style="color: #854d0e; display: block; letter-spacing: 0.5px;">🟡 PAIN MANAGED (10 = Pain Free)</span>
+                        <div id="stat-overall-pain" style="font-size: 1.6rem; font-weight: 800; color: #a16207; margin-top: 0.25rem;">8.0 / 10</div>
+                        <span class="text-xs text-muted" style="font-weight: 600;">Overall Average</span>
+                        <div id="stat-72h-pain" style="font-size: 0.85rem; font-weight: 700; color: #854d0e; margin-top: 0.4rem; padding-top: 0.35rem; border-top: 1px dashed #fef08a;">
+                            72h Avg: 8.5 / 10
+                        </div>
+                    </div>
+
+                    <!-- BLUE BOX: MOOD -->
+                    <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; padding: 1rem; border-radius: 14px; text-align: center;">
+                        <span class="text-xs font-bold" style="color: #1e40af; display: block; letter-spacing: 0.5px;">🔵 MOOD & SPIRITS</span>
+                        <div id="stat-overall-mood" style="font-size: 1.6rem; font-weight: 800; color: #1d4ed8; margin-top: 0.25rem;">7.0 / 10</div>
+                        <span class="text-xs text-muted" style="font-weight: 600;">Overall Average</span>
+                        <div id="stat-72h-mood" style="font-size: 0.85rem; font-weight: 700; color: #1e40af; margin-top: 0.4rem; padding-top: 0.35rem; border-top: 1px dashed #bfdbfe;">
+                            72h Avg: 7.5 / 10
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MULTI-LINE COLOR LEGEND -->
+                <div style="display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                    <span class="text-xs font-bold" style="color: #15803d; display: flex; align-items: center; gap: 0.35rem;">
+                        <span style="width: 12px; height: 12px; background: #16a34a; border-radius: 50%; display: inline-block;"></span> 🟢 Energy
+                    </span>
+                    <span class="text-xs font-bold" style="color: #d97706; display: flex; align-items: center; gap: 0.35rem;">
+                        <span style="width: 12px; height: 12px; background: #eab308; border-radius: 50%; display: inline-block;"></span> 🟡 Pain (10 = Free)
+                    </span>
+                    <span class="text-xs font-bold" style="color: #2563eb; display: flex; align-items: center; gap: 0.35rem;">
+                        <span style="width: 12px; height: 12px; background: #3b82f6; border-radius: 50%; display: inline-block;"></span> 🔵 Mood
+                    </span>
+                </div>
+
+                <div style="width: 100%; overflow-x: auto; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+                    <svg id="progress-chart" width="100%" height="240" viewBox="0 0 600 240" preserveAspectRatio="none" style="display: block;">
+                        <!-- SVG Dynamic chart injected here -->
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: AI CARE BOT -->
+        <section id="tab-bot" class="tab-content hidden">
+            <div class="card" style="padding: 0.75rem; margin-bottom: 1rem; background: var(--primary-light); border: none;">
+                <p class="text-xs" style="color: var(--primary-dark); font-weight: 600;">
+                    🤖 Steve's Care Assistant reads the active 3x daily caregiver updates to answer your questions accurately.
+                </p>
+            </div>
+
+            <div class="chat-box">
+                <div class="chat-prompts-wrapper">
+                    <span>Ask:</span>
+                    <button class="prompt-chip" onclick="sendPrompt('How is Steve feeling right now?')">How is Steve feeling right now?</button>
+                    <button class="prompt-chip" onclick="sendPrompt('When are visiting hours?')">When are visiting hours?</button>
+                    <button class="prompt-chip" onclick="sendPrompt('What foods can I bring Steve?')">What foods can I bring?</button>
+                    <button class="prompt-chip" onclick="sendPrompt('Does Steve need anything right now?')">Any special requests?</button>
+                </div>
+
+                <div id="chat-messages" class="chat-messages">
+                    <div class="chat-msg bot">
+                        Hello! I am Steve's automated Care Bot. Ask me anything about how Steve is doing today, visiting hours, or meal recommendations based on the latest caregiver updates!
+                    </div>
+                </div>
+
+                <form id="chat-form" style="display: flex; padding: 0.75rem; border-top: 1px solid var(--border); gap: 0.5rem; background: white;" onsubmit="handleChatSubmit(event)">
+                    <input type="text" id="chat-input" placeholder="Ask about Steve's recovery..." style="flex-grow: 1;">
+                    <button type="submit" class="btn-primary">Send</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB 3: SCHEDULE VISITS -->
+        <section id="tab-visits" class="tab-content hidden">
+            <!-- Admin Visit Slot Creator -->
+            <div id="admin-visit-manager" class="admin-panel hidden">
+                <span class="admin-panel-title">➕ Caregiver Tool: Add Visiting Slot</span>
+                <form id="add-visit-slot-form" class="grid-3" style="align-items: end;" onsubmit="addCustomVisitSlot(event)">
+                    <div>
+                        <label>Select Date</label>
+                        <select id="new-visit-date">
+                            <option value="Today, Nov 11">Today, Nov 11</option>
+                            <option value="Tomorrow, Nov 12">Tomorrow, Nov 12</option>
+                            <option value="Fri, Nov 13">Fri, Nov 13</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Time Block (e.g. 2:00 PM - 2:30 PM)</label>
+                        <input type="text" id="new-visit-time" placeholder="2:00 PM - 2:30 PM" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="padding: 0.65rem;">Add Visit Slot</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Reserve a Visiting Slot</h2>
+                <p class="text-xs text-muted" style="margin-bottom: 1rem;">
+                    To prevent Steve from getting overly tired, please sign up for an available 30-minute visiting window. Max 2 visitors per slot.
+                </p>
+
+                <!-- Date Tabs for Visits -->
+                <div id="visit-date-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; overflow-x: auto;">
+                    <!-- JS Injected -->
+                </div>
+
+                <div id="visit-slots-grid" class="grid-3">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: MEAL TRAIN -->
+        <section id="tab-meals" class="tab-content hidden">
+            <!-- Admin Meal Slot Creator -->
+            <div id="admin-meal-manager" class="admin-panel hidden">
+                <span class="admin-panel-title">🍲 Caregiver Tool: Add Meal Need Day</span>
+                <form id="add-meal-slot-form" class="grid-3" style="align-items: end;" onsubmit="addCustomMealSlot(event)">
+                    <div>
+                        <label>Meal Date</label>
+                        <input type="text" id="new-meal-date" placeholder="e.g. Fri, Nov 13" required>
+                    </div>
+                    <div>
+                        <label>Meal Type</label>
+                        <select id="new-meal-type">
+                            <option value="Dinner">Dinner</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Breakfast">Breakfast</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-accent" style="padding: 0.65rem;">Add Meal Need</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Meal Delivery Coordination</h2>
+                <div style="background: var(--accent-light); padding: 0.85rem; border-radius: 12px; margin-bottom: 1.25rem;">
+                    <strong style="color: #92400e; font-size: 0.85rem;">🍲 Current Dietary Guidelines:</strong>
+                    <p id="meal-dietary-guidelines" class="text-xs" style="color: #78350f; margin-top: 0.25rem;">
+                        Soft foods, low sodium soups, fruit smoothies, and mild pasta.
+                    </p>
+                </div>
+
+                <div id="meal-train-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: WELL WISHES BOARD -->
+        <section id="tab-wishes" class="tab-content hidden">
+            <div class="card">
+                <div class="flex-between" style="margin-bottom: 1rem;">
+                    <div>
+                        <h2 style="font-size: 1.1rem;">Well-Wishes Board</h2>
+                        <p class="text-xs text-muted">Leave an encouraging message or prayer for Steve!</p>
+                    </div>
+                    <button class="btn-primary" style="background: #e11d48;" onclick="document.getElementById('modal-wish').classList.remove('hidden')">❤️ Leave Note</button>
+                </div>
+
+                <div id="wishes-grid" class="grid-2">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: ADMIN PIN LOGIN -->
+    <div id="modal-admin" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.1rem;">Caregiver Admin Login</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <p class="text-xs text-muted" style="margin-bottom: 1rem;">Enter your caregiver PIN code (Default PIN: <strong>1234</strong>)</p>
+            <input type="password" id="admin-pin-input" placeholder="Enter 4-digit PIN" style="text-align: center; font-size: 1.25rem; letter-spacing: 4px; margin-bottom: 1rem;">
+            <p id="pin-error" class="text-xs hidden" style="color: #ef4444; margin-bottom: 0.75rem; text-align: center;">Incorrect PIN. Try 1234.</p>
+            <div class="flex-between">
+                <button class="btn-secondary" onclick="closeModals()">Cancel</button>
+                <button class="btn-primary" onclick="verifyAdminPin()">Unlock Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: RESERVE VISIT SLOT -->
+    <div id="modal-visit" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.1rem;">Reserve Visiting Slot</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <div id="visit-modal-info" class="badge badge-warning" style="margin-bottom: 1rem; width: 100%; text-align: center; padding: 0.5rem;"></div>
+            <form id="reserve-visit-form" onsubmit="submitVisitReservation(event)">
+                <div style="margin-bottom: 0.85rem;">
+                    <label>Your Name(s)</label>
+                    <input type="text" id="visitor-name" required placeholder="e.g. Sarah & Mark">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label>Contact Phone / Email</label>
+                    <input type="text" id="visitor-contact" required placeholder="For quick updates">
+                </div>
+                <div class="flex-between">
+                    <button type="button" class="btn-secondary" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn-primary">Confirm Reservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: MEAL SIGN-UP -->
+    <div id="modal-meal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.1rem;">Sign Up to Bring a Meal</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <div id="meal-modal-info" class="badge badge-warning" style="margin-bottom: 1rem; width: 100%; text-align: center; padding: 0.5rem;"></div>
+            <form id="claim-meal-form" onsubmit="submitMealClaim(event)">
+                <div style="margin-bottom: 0.85rem;">
+                    <label>Your Name</label>
+                    <input type="text" id="meal-provider-name" required placeholder="e.g. Uncle Dave">
+                </div>
+                <div style="margin-bottom: 0.85rem;">
+                    <label>What dish/meal will you bring?</label>
+                    <input type="text" id="meal-description" required placeholder="e.g. Chicken Noodle Soup & Fruit">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label>Estimated Drop-off Time</label>
+                    <input type="text" id="meal-dropoff-time" placeholder="e.g. 5:30 PM">
+                </div>
+                <div class="flex-between">
+                    <button type="button" class="btn-secondary" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn-accent">Confirm Meal Sign-Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: POST WELL WISH -->
+    <div id="modal-wish" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.1rem;">Send Steve a Note</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <form id="post-wish-form" onsubmit="submitWellWish(event)">
+                <div style="margin-bottom: 0.85rem;">
+                    <label>Your Name / Family Name</label>
+                    <input type="text" id="wish-author" required placeholder="e.g. The Miller Family">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label>Encouraging Message / Note</label>
+                    <textarea id="wish-text" rows="3" required placeholder="Write your words of support..."></textarea>
+                </div>
+                <div class="flex-between">
+                    <button type="button" class="btn-secondary" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn-primary" style="background: #e11d48;">Send Note ❤️</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: NOTIFICATION CENTER -->
+    <div id="modal-notif" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">🔔 Caregiver Notifications</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <div id="notif-feed" style="display: flex; flex-direction: column; gap: 0.75rem; max-height: 320px; overflow-y: auto; margin-bottom: 1rem;">
+                <!-- JS Injected -->
+            </div>
+            <button class="btn-secondary" style="width: 100%;" onclick="closeModals()">Close</button>
+        </div>
+    </div>
+
+    <!-- MODAL 6: INSTALL AS APP GUIDE -->
+    <div id="modal-install" class="modal-overlay hidden">
+        <div class="modal-card" style="max-width: 480px;">
+            <div class="flex-between" style="margin-bottom: 1rem;">
+                <h3 style="font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">📱 Add Hub to Home Screen</h3>
+                <button onclick="closeModals()" style="background:none; border:none; font-size: 1.2rem; cursor:pointer;">&times;</button>
+            </div>
+            <p class="text-xs text-muted" style="margin-bottom: 1rem;">Install Steve's Care Hub as a standalone app on your phone for 1-tap access with no browser bars!</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.85rem; border-radius: 12px;">
+                    <strong style="color: #166534; font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">🍏 iPhone & iPad (Safari):</strong>
+                    <ol class="text-xs text-muted" style="padding-left: 1.2rem; line-height: 1.5;">
+                        <li>Tap the <strong>Share button</strong> (square with an up arrow at bottom of screen).</li>
+                        <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+                        <li>Tap <strong>Add</strong> in top right. Icon will appear on home screen!</li>
+                    </ol>
+                </div>
+
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 0.85rem; border-radius: 12px;">
+                    <strong style="color: #1e40af; font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">🤖 Android (Chrome):</strong>
+                    <ol class="text-xs text-muted" style="padding-left: 1.2rem; line-height: 1.5;">
+                        <li>Tap the <strong>Three Dots menu</strong> in the upper-right corner.</li>
+                        <li>Select <strong>"Add to Home Screen"</strong> or <strong>"Install app"</strong>.</li>
+                        <li>Confirm and access directly from your phone app list!</li>
+                    </ol>
+                </div>
+            </div>
+
+            <button class="btn-primary" style="width: 100%;" onclick="closeModals()">Got It!</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // APP STATE
+        let isAdminActive = false;
+        let selectedVisitDateIdx = 0;
+        let activeVisitSlotId = null;
+        let activeMealSlotId = null;
+        let notificationCount = 2;
+
+        const visitDates = ["Today, Nov 11", "Tomorrow, Nov 12", "Fri, Nov 13"];
+
+        let notifications = [
+            { id: 1, title: "Visit Reserved", desc: "Uncle Bob & Mary reserved 10:30 AM slot today.", time: "10 mins ago" },
+            { id: 2, title: "Meal Train Claimed", desc: "Sarah K. signed up for Dinner today (Chicken Pot Pie).", time: "1 hour ago" }
+        ];
+
+        let updates = [
+            {
+                id: 1,
+                slot: "Evening Update (7:00 PM)",
+                timestamp: "11/11/2026 • 7:00 PM",
+                dateObj: new Date('2026-11-11T19:00:00'),
+                energy: 8,
+                pain: 9,
+                mood: 8,
+                status: "In Good Spirits 😊",
+                notes: "Steve completed physical therapy exercises smoothly. Sat up in his favorite chair for 2 hours and enjoyed visiting with family.",
+                diet: "Chicken Noodle Soup, Fruit Smoothies, Pudding",
+                special: "Resting comfortably. Open for evening visits."
+            },
+            {
+                id: 2,
+                slot: "Afternoon Update (1:30 PM)",
+                timestamp: "11/11/2026 • 1:30 PM",
+                dateObj: new Date('2026-11-11T13:30:00'),
+                energy: 6,
+                pain: 8,
+                mood: 7,
+                status: "Resting Peacefully 😴",
+                notes: "Vitals are completely steady. Took a 1.5-hour afternoon nap after lunch. Pain level is low and controlled.",
+                diet: "Had half a bowl of potato soup.",
+                special: "Please keep voices quiet near bedroom."
+            },
+            {
+                id: 3,
+                slot: "Morning Update (8:00 AM)",
+                timestamp: "11/10/2026 • 8:00 AM",
+                dateObj: new Date('2026-11-10T08:00:00'),
+                energy: 5,
+                pain: 7,
+                mood: 6,
+                status: "Sore but Recovering 💪",
+                notes: "Slept through the night. Morning vitals checked out well with physical therapy scheduled for afternoon.",
+                diet: "Oatmeal and herbal tea.",
+                special: "Morning rest period."
+            }
+        ];
+
+        let visitSlots = [
+            { id: "v1", dateIdx: 0, time: "10:30 AM - 11:00 AM", booked: true, visitor: "Uncle Bob & Mary" },
+            { id: "v2", dateIdx: 0, time: "2:00 PM - 2:30 PM", booked: false, visitor: null },
+            { id: "v3", dateIdx: 0, time: "4:00 PM - 4:30 PM", booked: false, visitor: null },
+            { id: "v4", dateIdx: 1, time: "11:00 AM - 11:30 AM", booked: false, visitor: null },
+            { id: "v5", dateIdx: 1, time: "3:00 PM - 3:30 PM", booked: false, visitor: null },
+            { id: "v6", dateIdx: 2, time: "2:30 PM - 3:00 PM", booked: false, visitor: null }
+        ];
+
+        let mealSlots = [
+            { id: "m1", date: "Today, Nov 11", type: "Dinner", claimed: true, provider: "Sarah K.", dish: "Chicken Pot Pie & Salad", dropoff: "5:30 PM" },
+            { id: "m2", date: "Tomorrow, Nov 12", type: "Lunch", claimed: false, provider: null, dish: null, dropoff: null },
+            { id: "m3", date: "Tomorrow, Nov 12", type: "Dinner", claimed: true, provider: "Tom & Lisa", dish: "Soft Lasagna", dropoff: "6:00 PM" },
+            { id: "m4", date: "Fri, Nov 13", type: "Dinner", claimed: false, provider: null, dish: null, dropoff: null }
+        ];
+
+        let wellWishes = [
+            { id: "w1", author: "The Henderson Family", text: "Sending big hugs and speedy recovery prayers Steve! Can't wait to see you back on your feet.", time: "Today" },
+            { id: "w2", author: "Coach Mike", text: "Hang in there buddy! We are all rooting for you.", time: "Yesterday" }
+        ];
+
+        // INITIALIZE ON LOAD
+        window.onload = function() {
+            renderAll();
+            updateNotifBadge();
+        };
+
+        function renderAll() {
+            renderUpdates();
+            renderProgress();
+            renderVisits();
+            renderMeals();
+            renderWishes();
+            renderNotifications();
+        }
+
+        // TAB SWITCHING
+        function switchTab(tabId, btnEl) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            if (btnEl) btnEl.classList.add('active');
+
+            if (tabId === 'progress') renderProgress();
+        }
+
+        // ADMIN TOGGLE & PIN LOGIC
+        function toggleAdminMode() {
+            if (isAdminActive) {
+                exitAdminMode();
+            } else {
+                document.getElementById('modal-admin').classList.remove('hidden');
+                document.getElementById('admin-pin-input').value = '';
+                document.getElementById('pin-error').classList.add('hidden');
+            }
+        }
+
+        function verifyAdminPin() {
+            const pin = document.getElementById('admin-pin-input').value;
+            if (pin === '1234') {
+                isAdminActive = true;
+                closeModals();
+                document.getElementById('admin-banner').classList.remove('hidden');
+                document.getElementById('admin-post-section').classList.remove('hidden');
+                document.getElementById('admin-visit-manager').classList.remove('hidden');
+                document.getElementById('admin-meal-manager').classList.remove('hidden');
+                document.getElementById('notif-btn').classList.remove('hidden'); // Show bell in Admin
+                document.getElementById('admin-toggle-btn').innerText = '⚡ Exit Admin Mode';
+                renderVisits();
+                renderMeals();
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+            }
+        }
+
+        function exitAdminMode() {
+            isAdminActive = false;
+            document.getElementById('admin-banner').classList.add('hidden');
+            document.getElementById('admin-post-section').classList.add('hidden');
+            document.getElementById('admin-visit-manager').classList.add('hidden');
+            document.getElementById('admin-meal-manager').classList.add('hidden');
+            document.getElementById('notif-btn').classList.add('hidden'); // Hide bell outside Admin
+            document.getElementById('admin-toggle-btn').innerText = '🔑 Caregiver Admin Mode';
+            renderVisits();
+            renderMeals();
+        }
+
+        function toggleCustomFeelingInput(selectEl) {
+            const customInput = document.getElementById('log-custom-feeling');
+            if (selectEl.value === 'OTHER') {
+                customInput.classList.remove('hidden');
+                customInput.required = true;
+            } else {
+                customInput.classList.add('hidden');
+                customInput.required = false;
+            }
+        }
+
+        function submitCareLog(e) {
+            e.preventDefault();
+            const slot = document.getElementById('log-time-slot').value;
+            const energy = parseInt(document.getElementById('log-energy').value);
+            const pain = parseInt(document.getElementById('log-pain').value);
+            const mood = parseInt(document.getElementById('log-mood').value);
+            const feelingSelect = document.getElementById('log-feeling').value;
+            const customFeeling = document.getElementById('log-custom-feeling').value;
+            const feeling = feelingSelect === 'OTHER' ? customFeeling : feelingSelect;
+            const notes = document.getElementById('log-notes').value;
+            const diet = document.getElementById('log-diet').value || 'Standard recovery diet';
+            const special = document.getElementById('log-special').value || 'None';
+
+            const now = new Date();
+            const nowFormatted = `${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getDate().toString().padStart(2,'0')}/${now.getFullYear()} • ${now.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+
+            const newLog = {
+                id: Date.now(),
+                slot: slot,
+                timestamp: nowFormatted,
+                dateObj: now,
+                energy: energy,
+                pain: pain,
+                mood: mood,
+                status: feeling,
+                notes: notes,
+                diet: diet,
+                special: special
+            };
+
+            updates.unshift(newLog);
+            renderUpdates();
+            renderProgress();
+            
+            document.getElementById('new-update-form').reset();
+            document.getElementById('log-custom-feeling').classList.add('hidden');
+            document.getElementById('energy-val').innerText = '8/10';
+            document.getElementById('pain-val').innerText = '9/10';
+            document.getElementById('mood-val').innerText = '8/10';
+            alert("New Care Log Published Successfully!");
+        }
+
+        // RENDER UPDATES WITH NEW STYLING & 72-HOUR FILTERING
+        function renderUpdates() {
+            if (updates.length === 0) return;
+            const top = updates[0];
+
+            document.getElementById('hero-submitted-time').innerText = `Submitted: ${top.timestamp}`;
+            document.getElementById('hero-status').innerText = top.status;
+            document.getElementById('hero-notes').innerText = top.notes;
+            document.getElementById('hero-energy-val').innerText = `${top.energy}/10`;
+            document.getElementById('hero-pain-val').innerText = `${top.pain}/10`;
+            document.getElementById('hero-mood-val').innerText = `${top.mood}/10`;
+
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+
+            const now = new Date();
+            const seventyTwoHoursMs = 72 * 60 * 60 * 1000;
+
+            // Filter history for updates strictly within the last 72 hours (excluding latest top hero update)
+            const historyUpdates = updates.slice(1).filter(item => {
+                if (!item.dateObj) return true;
+                return (now - item.dateObj) <= seventyTwoHoursMs;
+            });
+
+            if (historyUpdates.length === 0) {
+                container.innerHTML = '<p class="text-xs text-muted" style="text-align:center; padding: 1rem;">No other updates in the past 72 hours.</p>';
+                return;
+            }
+
+            historyUpdates.forEach(log => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+                card.innerHTML = `
+                    <div class="flex-between" style="margin-bottom: 0.75rem;">
+                        <span style="font-weight: 800; font-size: 0.9rem; color: #166534;">Steve's Status: ${log.status}</span>
+                        <span class="badge badge-muted" style="font-size: 0.7rem;">${log.timestamp}</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 0.65rem 0.85rem; border-radius: 10px; margin-bottom: 0.65rem; font-size: 0.85rem; color: #1e293b; line-height: 1.4;">
+                        ${log.notes}
+                    </div>
+                    <div class="text-xs font-bold" style="color: #15803d; display: flex; gap: 1rem;">
+                        <span>⚡ Energy: ${log.energy}/10</span>
+                        <span>💊 Pain Managed: ${log.pain || 8}/10</span>
+                        <span>😊 Mood: ${log.mood || 7}/10</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // RENDER PROGRESS SVG CHART (3 DISTINCT LINES: ENERGY, PAIN, MOOD)
+        function renderProgress() {
+            if (updates.length === 0) return;
+
+            document.getElementById('progress-total-count').innerText = `${updates.length} Logs Tracked`;
+
+            // Calculate Overall Averages
+            const overallEnergy = (updates.reduce((a, c) => a + parseInt(c.energy), 0) / updates.length).toFixed(1);
+            const overallPain = (updates.reduce((a, c) => a + parseInt(c.pain || 8), 0) / updates.length).toFixed(1);
+            const overallMood = (updates.reduce((a, c) => a + parseInt(c.mood || 7), 0) / updates.length).toFixed(1);
+
+            document.getElementById('stat-overall-energy').innerText = `${overallEnergy} / 10`;
+            document.getElementById('stat-overall-pain').innerText = `${overallPain} / 10`;
+            document.getElementById('stat-overall-mood').innerText = `${overallMood} / 10`;
+
+            // Calculate 72-Hour Rolling Averages
+            const now = new Date();
+            const seventyTwoHoursMs = 72 * 60 * 60 * 1000;
+            const recentLogs = updates.filter(u => !u.dateObj || (now - u.dateObj) <= seventyTwoHoursMs);
+            const rLen = Math.max(recentLogs.length, 1);
+
+            const rEnergy = (recentLogs.reduce((a, c) => a + parseInt(c.energy), 0) / rLen).toFixed(1);
+            const rPain = (recentLogs.reduce((a, c) => a + parseInt(c.pain || 8), 0) / rLen).toFixed(1);
+            const rMood = (recentLogs.reduce((a, c) => a + parseInt(c.mood || 7), 0) / rLen).toFixed(1);
+
+            document.getElementById('stat-72h-energy').innerText = `72h Avg: ${rEnergy} / 10`;
+            document.getElementById('stat-72h-pain').innerText = `72h Avg: ${rPain} / 10`;
+            document.getElementById('stat-72h-mood').innerText = `72h Avg: ${rMood} / 10`;
+
+            const svg = document.getElementById('progress-chart');
+            svg.innerHTML = '';
+
+            const sortedLogs = [...updates].reverse();
+            const width = 600;
+            const height = 240;
+            const padding = 40;
+
+            const numPoints = sortedLogs.length;
+            const stepX = (width - padding * 2) / Math.max(numPoints - 1, 1);
+
+            let energyPoints = '', painPoints = '', moodPoints = '';
+            let dotsHTML = '';
+
+            // Draw Y-Axis Grid & Numbers
+            for (let e = 2; e <= 10; e += 2) {
+                const y = height - padding - ((e / 10) * (height - padding * 2));
+                svg.innerHTML += `<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4"/>`;
+                svg.innerHTML += `<text x="${padding - 10}" y="${y + 4}" font-size="10" fill="#94a3b8" text-anchor="end">${e}</text>`;
+            }
+
+            sortedLogs.forEach((log, i) => {
+                const x = numPoints === 1 ? width / 2 : padding + (i * stepX);
+                const energyY = height - padding - ((log.energy / 10) * (height - padding * 2));
+                const painY = height - padding - (((log.pain || 8) / 10) * (height - padding * 2));
+                const moodY = height - padding - (((log.mood || 7) / 10) * (height - padding * 2));
+
+                energyPoints += `${x},${energyY} `;
+                painPoints += `${x},${painY} `;
+                moodPoints += `${x},${moodY} `;
+
+                // Draw Dots
+                dotsHTML += `<circle cx="${x}" cy="${energyY}" r="5" fill="#16a34a" stroke="#ffffff" stroke-width="2"/>`;
+                dotsHTML += `<circle cx="${x}" cy="${painY}" r="5" fill="#eab308" stroke="#ffffff" stroke-width="2"/>`;
+                dotsHTML += `<circle cx="${x}" cy="${moodY}" r="5" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>`;
+
+                // X-Axis Labels
+                dotsHTML += `<text x="${x}" y="${height - 12}" font-size="10" fill="#64748b" text-anchor="middle">${log.slot.split(' ')[0]}</text>`;
+            });
+
+            // Draw 3 Trend Lines
+            if (numPoints > 1) {
+                svg.innerHTML += `<polyline fill="none" stroke="#16a34a" stroke-width="3" points="${energyPoints.trim()}"/>`;
+                svg.innerHTML += `<polyline fill="none" stroke="#eab308" stroke-width="3" points="${painPoints.trim()}"/>`;
+                svg.innerHTML += `<polyline fill="none" stroke="#3b82f6" stroke-width="3" points="${moodPoints.trim()}"/>`;
+            }
+            svg.innerHTML += dotsHTML;
+        }
+
+        // VISITS LOGIC
+        function renderVisits() {
+            const dateTabContainer = document.getElementById('visit-date-tabs');
+            dateTabContainer.innerHTML = '';
+            visitDates.forEach((d, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `btn-secondary ${idx === selectedVisitDateIdx ? 'btn-primary' : ''}`;
+                btn.style.fontSize = '0.8rem';
+                btn.innerText = d;
+                btn.onclick = () => {
+                    selectedVisitDateIdx = idx;
+                    renderVisits();
+                };
+                dateTabContainer.appendChild(btn);
+            });
+
+            const grid = document.getElementById('visit-slots-grid');
+            grid.innerHTML = '';
+
+            const currentSlots = visitSlots.filter(s => s.dateIdx === selectedVisitDateIdx);
+
+            if (currentSlots.length === 0) {
+                grid.innerHTML = '<p class="text-xs text-muted" style="grid-column: 1/-1;">No visiting slots scheduled for this date.</p>';
+                return;
+            }
+
+            currentSlots.forEach(slot => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.padding = '1rem';
+                card.style.marginBottom = '0';
+
+                let deleteBtn = isAdminActive ? `<button class="btn-danger mt-2" onclick="deleteVisitSlot('${slot.id}')">Delete Slot</button>` : '';
+
+                if (slot.booked) {
+                    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Visit Steve (' + slot.visitor + ')')}&details=${encodeURIComponent('Visiting slot reserved for ' + slot.visitor + ' on ' + visitDates[slot.dateIdx])}&location=${encodeURIComponent("Steve's Home")}`;
+
+                    card.innerHTML = `
+                        <div class="flex-between" style="margin-bottom: 0.5rem;">
+                            <strong class="text-sm">${slot.time}</strong>
+                            <span class="badge badge-muted">RESERVED</span>
+                        </div>
+                        <p class="text-xs text-muted">Visitor: ${slot.visitor}</p>
+                        <div style="margin-top:0.5rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+                            <a href="${gCalUrl}" target="_blank" class="btn-secondary text-xs" style="text-decoration:none; display:inline-block; padding:0.35rem 0.6rem;">📅 Google Calendar</a>
+                        </div>
+                        ${deleteBtn}
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="flex-between" style="margin-bottom: 0.5rem;">
+                            <strong class="text-sm" style="color: var(--primary-dark);">${slot.time}</strong>
+                            <span class="badge badge-success">OPEN</span>
+                        </div>
+                        <button class="btn-primary text-xs" style="width:100%; margin-top:0.5rem;" onclick="openVisitModal('${slot.id}')">Reserve Slot</button>
+                        ${deleteBtn}
+                    `;
+                }
+                grid.appendChild(card);
+            });
+        }
+
+        function openVisitModal(slotId) {
+            activeVisitSlotId = slotId;
+            const slot = visitSlots.find(s => s.id === slotId);
+            document.getElementById('visit-modal-info').innerText = `Reserving: ${visitDates[slot.dateIdx]} @ ${slot.time}`;
+            document.getElementById('modal-visit').classList.remove('hidden');
+        }
+
+        function submitVisitReservation(e) {
+            e.preventDefault();
+            const slot = visitSlots.find(s => s.id === activeVisitSlotId);
+            if (slot) {
+                const name = document.getElementById('visitor-name').value;
+                slot.booked = true;
+                slot.visitor = name;
+
+                addNotification("Visit Reserved", `${name} reserved slot (${visitDates[slot.dateIdx]} @ ${slot.time}).`);
+                renderVisits();
+                closeModals();
+                alert("Slot Reserved! Thank you.");
+            }
+        }
+
+        function addCustomVisitSlot(e) {
+            e.preventDefault();
+            const dateVal = document.getElementById('new-visit-date').value;
+            const timeVal = document.getElementById('new-visit-time').value;
+            let dateIdx = visitDates.indexOf(dateVal);
+            if (dateIdx === -1) dateIdx = 0;
+
+            visitSlots.push({
+                id: 'v_' + Date.now(),
+                dateIdx: dateIdx,
+                time: timeVal,
+                booked: false,
+                visitor: null
+            });
+
+            renderVisits();
+            document.getElementById('add-visit-slot-form').reset();
+        }
+
+        function deleteVisitSlot(slotId) {
+            visitSlots = visitSlots.filter(s => s.id !== slotId);
+            renderVisits();
+        }
+
+        // MEALS LOGIC
+        function renderMeals() {
+            const list = document.getElementById('meal-train-list');
+            list.innerHTML = '';
+
+            mealSlots.forEach(meal => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.padding = '1rem';
+                card.style.marginBottom = '0';
+
+                let deleteBtn = isAdminActive ? `<button class="btn-danger text-xs" onclick="deleteMealSlot('${meal.id}')">Delete Need</button>` : '';
+
+                if (meal.claimed) {
+                    const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Meal Drop-off for Steve (' + meal.type + ')')}&details=${encodeURIComponent(meal.provider + ' bringing ' + meal.dish)}&location=${encodeURIComponent("Steve's Home")}`;
+
+                    card.innerHTML = `
+                        <div class="flex-between">
+                            <div>
+                                <strong class="text-sm">${meal.date} • ${meal.type}</strong>
+                                <p class="text-xs text-muted mt-2">Covered by: <strong>${meal.provider}</strong> (${meal.dish}) - Drop-off: ${meal.dropoff}</p>
+                            </div>
+                            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+                                <span class="badge badge-muted">CLAIMED</span>
+                                <a href="${gCalUrl}" target="_blank" class="btn-secondary text-xs" style="text-decoration:none; padding:0.25rem 0.5rem;">📅 Cal</a>
+                                ${deleteBtn}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="flex-between">
+                            <div>
+                                <strong class="text-sm" style="color: var(--primary-dark);">${meal.date} • ${meal.type}</strong>
+                                <p class="text-xs text-muted mt-2">Meal delivery needed for Steve & Caregiver</p>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:0.5rem;">
+                                <button class="btn-accent text-xs" onclick="openMealModal('${meal.id}')">Sign Up to Bring Meal</button>
+                                ${deleteBtn}
+                            </div>
+                        </div>
+                    `;
+                }
+                list.appendChild(card);
+            });
+        }
+
+        function openMealModal(mealId) {
+            activeMealSlotId = mealId;
+            const meal = mealSlots.find(m => m.id === mealId);
+            document.getElementById('meal-modal-info').innerText = `Bringing ${meal.type} for ${meal.date}`;
+            document.getElementById('modal-meal').classList.remove('hidden');
+        }
+
+        function submitMealClaim(e) {
+            e.preventDefault();
+            const meal = mealSlots.find(m => m.id === activeMealSlotId);
+            if (meal) {
+                const provider = document.getElementById('meal-provider-name').value;
+                const dish = document.getElementById('meal-description').value;
+                const dropoff = document.getElementById('meal-dropoff-time').value || '5:30 PM';
+
+                meal.claimed = true;
+                meal.provider = provider;
+                meal.dish = dish;
+                meal.dropoff = dropoff;
+
+                addNotification("Meal Train Signed Up", `${provider} is bringing ${dish} for ${meal.type} on ${meal.date}.`);
+                renderMeals();
+                closeModals();
+                alert("Thank you for supporting Steve with a meal!");
+            }
+        }
+
+        function addCustomMealSlot(e) {
+            e.preventDefault();
+            const date = document.getElementById('new-meal-date').value;
+            const type = document.getElementById('new-meal-type').value;
+
+            mealSlots.push({
+                id: 'm_' + Date.now(),
+                date: date,
+                type: type,
+                claimed: false,
+                provider: null,
+                dish: null,
+                dropoff: null
+            });
+
+            renderMeals();
+            document.getElementById('add-meal-slot-form').reset();
+        }
+
+        function deleteMealSlot(mealId) {
+            mealSlots = mealSlots.filter(m => m.id !== mealId);
+            renderMeals();
+        }
+
+        // WELL WISHES LOGIC
+        function renderWishes() {
+            const grid = document.getElementById('wishes-grid');
+            grid.innerHTML = '';
+
+            wellWishes.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.marginBottom = '0';
+                card.innerHTML = `
+                    <div class="flex-between" style="margin-bottom: 0.5rem;">
+                        <strong class="text-sm" style="color: #be123c;">❤️ ${item.author}</strong>
+                        <span class="text-xs text-muted">${item.time}</span>
+                    </div>
+                    <p class="text-xs text-muted" style="line-height: 1.4;">"${item.text}"</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function submitWellWish(e) {
+            e.preventDefault();
+            const author = document.getElementById('wish-author').value;
+            const text = document.getElementById('wish-text').value;
+
+            wellWishes.unshift({
+                id: 'w_' + Date.now(),
+                author: author,
+                text: text,
+                time: 'Just now'
+            });
+
+            addNotification("New Well Wish", `${author} left a note for Steve.`);
+            renderWishes();
+            closeModals();
+            document.getElementById('post-wish-form').reset();
+        }
+
+        // NOTIFICATIONS SYSTEM
+        function addNotification(title, desc) {
+            notifications.unshift({
+                id: Date.now(),
+                title: title,
+                desc: desc,
+                time: 'Just now'
+            });
+            notificationCount++;
+            updateNotifBadge();
+            renderNotifications();
+        }
+
+        function updateNotifBadge() {
+            const badge = document.getElementById('notif-badge-count');
+            if (notificationCount > 0) {
+                badge.innerText = notificationCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderNotifications() {
+            const feed = document.getElementById('notif-feed');
+            feed.innerHTML = '';
+            if (notifications.length === 0) {
+                feed.innerHTML = '<p class="text-xs text-muted" style="text-align:center; padding:1rem;">No recent notifications.</p>';
+                return;
+            }
+
+            notifications.forEach(n => {
+                const item = document.createElement('div');
+                item.style.padding = '0.75rem';
+                item.style.borderRadius = '10px';
+                item.style.border = '1px solid var(--border)';
+                item.style.background = '#f8fafc';
+                item.innerHTML = `
+                    <div class="flex-between">
+                        <strong class="text-xs" style="color:var(--primary-dark);">${n.title}</strong>
+                        <span class="text-xs text-muted">${n.time}</span>
+                    </div>
+                    <p class="text-xs mt-2" style="color: #334155;">${n.desc}</p>
+                `;
+                feed.appendChild(item);
+            });
+        }
+
+        function openNotifCenter() {
+            notificationCount = 0;
+            updateNotifBadge();
+            document.getElementById('modal-notif').classList.remove('hidden');
+        }
+
+        function openInstallModal() {
+            document.getElementById('modal-install').classList.remove('hidden');
+        }
+
+        // CHAT BOT HANDLERS
+        function sendPrompt(text) {
+            document.getElementById('chat-input').value = text;
+            handleChatSubmit(new Event('submit'));
+        }
+
+        function handleChatSubmit(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const container = document.getElementById('chat-messages');
+
+            // Add User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.innerText = query;
+            container.appendChild(userMsg);
+
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Generate Bot Reply
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg bot';
+
+                const latest = updates[0];
+                let reply = `Based on the latest update (${latest.slot}), Steve is feeling "${latest.status}" with an energy level of ${latest.energy}/10. Note: "${latest.notes}"`;
+
+                const qLower = query.toLowerCase();
+                if (qLower.includes('food') || qLower.includes('eat') || qLower.includes('bring')) {
+                    reply = `Steve's current meal cravings/guidelines are: ${latest.diet}.`;
+                } else if (qLower.includes('visit') || qLower.includes('hours') || qLower.includes('when')) {
+                    reply = `Special caregiver visit note: "${latest.special}". Check the "Schedule Visit" tab to reserve an open 30-minute window!`;
+                }
+
+                botMsg.innerText = reply;
+                container.appendChild(botMsg);
+                container.scrollTop = container.scrollHeight;
+            }, 400);
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden'));
+        }
+    </script>
+</body>
+</html>
